@@ -11,7 +11,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import mean_squared_error, r2_score,accuracy_score, precision_score, recall_score, confusion_matrix, classification_report, roc_auc_score, f1_score
 
 def ML(u):
-    df = pd.read_csv(filename, header=0)
+    df = pd.read_csv('https://raw.githubusercontent.com/MarcelinoCodes/CyberDetection/master/File.csv', header=0)
     #filling null values
     df['content_length'] = df['content_length'].fillna(0)
     df['server'] = df['server'].fillna(0)
