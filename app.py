@@ -31,7 +31,7 @@ def ML(u):
     # Predicting values for test dataset
     y_pred = rf_model.predict(X_test)
     
-    predicted_label = rf_model.predict(u)[0]
+    predicted_label = rf_model.predict([u])[0]
     
 def count_special_characters(input_string):
     special_characters = 0
@@ -104,6 +104,7 @@ def run_app():
             result="https://i.ibb.co/PjrWmJm/cross.png"
         else:
             result="https://i.ibb.co/0hk28GL/check.png"
+        return render_template('index.html',text=text,result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)
