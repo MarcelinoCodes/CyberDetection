@@ -25,7 +25,7 @@ def run_app():
     elif request.method=='POST':
         text = request.form['text']
         try:
-            model=jb.load(model)
+            model=jb.loads(model)
             url=[100]
     
             url.append(len(text))
