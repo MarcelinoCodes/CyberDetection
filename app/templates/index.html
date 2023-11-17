@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Cyber Security</title>
+
+    <style media="screen">
+    /* Reset some default styles */
+    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("https://actifile.com/wp-content/uploads/2023/06/video0bg.jpg");
+        background-size: cover; /* Cover the entire viewport */
+        background-position: center; /* Center the image horizontally and vertically */
+        background-repeat: no-repeat; /* Prevent image from repeating */
+        background-attachment: fixed;
+    }
+
+    .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* This ensures the container takes up the full viewport height */
+        }
+
+        /* Style the video element if needed */
+        iframe {
+            max-width: 100%; /* Ensure the video stays within the container */
+            max-height: 100%; /* Ensure the video stays within the container */
+        }
+   
+    /* Style the navigation bar */
+    nav {
+        background-color: #333; /* Background color */
+        color: #fff; /* Text color */
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Vertically center the content */
+        padding: 10px 20px;
+    }
+
+    .menu-toggle {
+        display: none; /* Hide the hamburger button by default */
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 3px 0;
+        border-radius: 3px;
+    }
+
+    .menu {
+        list-style-type: none;
+        text-align: center;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        /* Center the list items horizontally and vertically */
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensure list items occupy full height of the navigation bar */
+    }
+
+    .menu li {
+        margin: 0 20px;
+    }
+
+    .menu a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    /* Change link color on hover */
+    .menu a:hover {
+        color: #f1f1f1;
+    }
+
+    /* Style the search bar */
+    .search-bar {
+        text-align: center;
+        margin: 25vh auto 20px; /* Move the navigation bar one-fourth down the page */
+        max-width: 400px; /* Limit the width of the search bar */
+    }
+
+    .search-bar input[type="text"] {
+        width: 70%; /* Set the width of the input field */
+        padding: 10px; /* Add some padding for better appearance */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 5px; /* Add rounded corners */
+        font-size: 16px; /* Set the font size */
+    }
+
+    .search-bar button {
+        padding: 10px 20px; /* Add padding to the button */
+        background-color: #333; /* Background color for the button */
+        color: #fff; /* Text color for the button */
+        border: none; /* Remove button border */
+        border-radius: 5px; /* Add rounded corners */
+        font-size: 16px; /* Set the font size */
+        cursor: pointer; /* Change cursor to pointer on hover */
+    }
+
+    /* Style the button on hover */
+    .search-bar button:hover {
+        background-color: #444;
+    }
+
+    .centerthis{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+#image_check{
+    display: none;
+}
+
+#val{
+    text-align: center;
+    margin-top: 10vh;
+}
+
+.center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 0vh; /* Optional, sets the centering area to the full viewport height */
+        }
+
+
+
+
+        
+        .table-container {
+            width: 50%;
+            float: left;
+            height: 50vh;
+        }
+        table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+
+
+
+
+
+
+        /* Media query for screens less than 800px wide */
+    @media (max-width: 800px) {
+        .menu {
+            display: none; /* Hide the menu items by default */
+            flex-direction: column;
+            background-color: #333;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .menu.active {
+            display: flex; /* Show the menu items when the menu is active */
+        }
+
+        .menu-toggle {
+            display: flex; /* Show the hamburger button only when the screen width is less than 800px */
+        }
+        .table-container {
+            display: block;
+            width: 100%;
+            margin-bottom: 0px; /* Add margin between the tables */
+        }
+
+        .table-container table {
+            width: 100%;
+        }
+    }
+    </style>
+
+
+
+</head>
+<body onload="window.scrollTo(0,0);">
+<div id="scrollToTop"></div>
+<div id="A" style="width: 100%; height: 100vh;">
+  <nav>
+      <div class="navbar">
+          <div class="menu-toggle" id="menuToggle">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+          </div>
+            <ul class="menu" id="menu" style="margin-left: 39%;">
+                <li><a href="#A">Application</a></li>
+                <li><a href="#D" onclick="">Dashboard</a></li>
+            </ul>
+      </div>
+  </nav>
+  <img id="val" src="{{result}}" alt="" style="width: 100px; height: 100px; margin-left: 45%;">
+    <div class="search-bar">
+        <form method="POST">
+            <input name="text" id="testsubject" type="text" placeholder="Search..." >
+            <button onclick="" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+    <div id="D" style="width: 100%; height: 100vh; background-color: white;">
+        <div id="my_dataviz">
+            <!--<canvas id="myChart"></canvas>-->
+            <div class="table-container" style="background-color: white;">
+                <table>
+                    <tr>
+                        <td><canvas id="myChart1"></canvas></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container" style="background-color: white;">
+                <table>
+                    <tr>
+                        <td><canvas id="myChart2"  width="200" height="200"></canvas></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container" style="background-color: white;">
+                <table>
+                    <tr>
+                        <td><canvas id="myChart3"  width="200" height="200"></canvas></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container" style="background-color: white;">
+                <table>
+                    <tr>
+                        <td><canvas id="myChart4"></canvas></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const menu = document.getElementById("menu");
+    
+      menuToggle.addEventListener("click", function () {
+          menu.classList.toggle("active");
+      });
+    });
+    
+
+    //make the first chart be visual showing the countries with the most malicious URLs
+    const ctx1 = document.getElementById('myChart1');
+
+    var countries = ['US','UNKNOWN','CA','AU','OTHER']
+    var country_data = [1103/1781,306/1781,84/1781,35/1781,253/1781]
+    new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: countries,
+      datasets: [{
+        label: '% of COUNTRIES that host malicious links',
+        data: country_data,
+        borderWidth: 1
+      }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        aspectRatio: 1, // Maintaining a square aspect ratio
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  //Make the 2nd be a pie chart with the proportional percentages of malicious sites
+  const ctx2 = document.getElementById('myChart2').getContext('2d');
+
+  new Chart(ctx2, {
+  type: 'pie',
+  data: {
+    labels: ['Malicious', 'Safe'],
+    datasets: [{
+      label: 'Types of Sites',
+      data: [34, 66],
+      backgroundColor: [
+        'red',
+        'blue'
+      ]
+    }]
+  },
+  options: {
+    responsive: false,
+    maintainAspectRatio: false,
+    aspectRatio: 1, // Maintaining a square aspect ratio
+    plugins: {
+      title: {
+        display: true,
+        text: 'Proportion of Malicious Sites' // Your title here
+      }
+    }
+  }
+});
+
+  //Make the 3rd chart be a pie or bar chart showing the servers with the most malicious URLs 
+  const ctx3 = document.getElementById('myChart3').getContext('2d');
+
+new Chart(ctx3, {
+  type: 'pie',
+  data: {
+    labels: ['Phishing', 'Defacement', 'Malware'],
+    datasets: [{
+      label: 'Types of Malicious Sites',
+      data: [40, 40, 20],
+      backgroundColor: [
+        'red',
+        'blue',
+        'green'
+      ]
+    }]
+  },
+  options: {
+    responsive: false,
+    maintainAspectRatio: false,
+    aspectRatio: 1, // Maintaining a square aspect ratio
+    plugins: {
+      title: {
+        display: true,
+        text: 'Different Types of Malicious Sites' // Your title here
+      }
+    }
+  }
+});
+
+  //Make the 4th chart show the number of links by US states
+  var A=122/216
+  var N=66/216
+  var M=16/216
+  var O=1-A-N-M
+  const ctx4 = document.getElementById('myChart4');
+
+    new Chart(ctx4, {
+    type: 'bar',
+    data: {
+      labels: ['Apache', 'nginx', 'Microsoft', 'Other'],
+      datasets: [{
+        label: 'proportion of malicious servers',
+        data: [A, N, M, O],
+        borderWidth: 1
+      }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        aspectRatio: 1, // Maintaining a square aspect ratio
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+    </script>
+</html>
