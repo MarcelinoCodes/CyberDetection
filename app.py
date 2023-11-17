@@ -31,7 +31,7 @@ def ML(u):
     # Predicting values for test dataset
     y_pred = rf_model.predict(X_test)
     
-    predicted_label = rf_model.predict([u])[0]
+    predicted_label = rf_model.predict(u)[0]
     
 def count_special_characters(input_string):
     special_characters = 0
