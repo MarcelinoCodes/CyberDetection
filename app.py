@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import pandas as pd
 from joblib import load 
-#from urllib.request import urlopen
+from urllib.request import urlopen
 
 def count_special_characters(input_string):
     special_characters = 0
