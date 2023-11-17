@@ -10,7 +10,7 @@ def count_special_characters(input_string):
             special_characters += 1
     return special_characters
 
-#model=load('rf_model.joblib')
+model=load('rf_model.joblib')
 app=Flask(__name__)
 
 @app.route('/',methods=['GET','POST'])
