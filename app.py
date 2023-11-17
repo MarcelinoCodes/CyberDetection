@@ -21,7 +21,8 @@ def ML(u):
     df = pd.get_dummies(df, columns=['charsets'], drop_first=True)
     #creating X and y; now train test split
     y = df['mal']
-    X_train, X_test, y_train, y_test = train_test_split(df.drop(columns = 'mal', axis=1), y, test_size=0.30, random_state=1234)
+    X=df.drop(columns = 'mal', axis=1)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1234)
     # Creating model
     rf_model = RandomForestClassifier()
     # Fitting the model 
@@ -31,9 +32,6 @@ def ML(u):
     y_pred = rf_model.predict(X_test)
     
     predicted_label = rf_model.predict([u])[0]
-    
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1234)
     
 def count_special_characters(input_string):
     special_characters = 0
