@@ -1,8 +1,40 @@
 from flask import Flask, render_template, request
 import pandas as pd
-from joblib import load 
+import numpy as np
 from urllib.request import urlopen
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
+from sklearn import tree
+from sklearn.tree import DecisionTreeClassifier 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import mean_squared_error, r2_score,accuracy_score, precision_score, recall_score, confusion_matrix, classification_report, roc_auc_score, f1_score
 
+def ML(u):
+    df = pd.read_csv(filename, header=0)
+    #filling null values
+    df['content_length'] = df['content_length'].fillna(0)
+    df['server'] = df['server'].fillna(0)
+    #dropping columns and one hot encoding
+    #Try normailzation and tokenization for URL instead of just droppping(note to self)
+    df = pd.get_dummies(df, columns=['server'], drop_first=True)
+    df = pd.get_dummies(df, columns=['charsets'], drop_first=True)
+    #creating X and y; now train test split
+    y = df['mal'] 
+    X = df.drop(columns = 'mal', axis=1)
+    # Creating model
+    rf_model = RandomForestClassifier()
+    # Fitting the model 
+    rf_model.fit(X_train, y_train)
+    
+    # Predicting values for test dataset
+    y_pred = rf_model.predict(X_test)
+    
+    predicted_label = rf_model.predict([u])[0]
+    
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1234)
+    
 def count_special_characters(input_string):
     special_characters = 0
     for char in input_string:
@@ -10,7 +42,6 @@ def count_special_characters(input_string):
             special_characters += 1
     return special_characters
 
-model=load('rf_model.joblib')
 app=Flask(__name__)
 
 @app.route('/',methods=['GET','POST'])
@@ -18,7 +49,6 @@ def run_app():
     if request.method=='GET':
         return render_template('index.html')
     elif request.method=='POST':
-        '''
         text = request.form['text']
         url=[100]
 
@@ -71,22 +101,11 @@ def run_app():
         url=url+x_list+y_list
 
         url=pd.Series(url).fillna(-1).tolist()
-        print(url)
-        pred=model.predict([url])[0]
-        print('My prediction is: '+str(pred))
-        
+        pred=ML(url)
         if pred==1:
             result="https://i.ibb.co/PjrWmJm/cross.png"
         else:
             result="https://i.ibb.co/0hk28GL/check.png"
-        '''
-        text = request.form['text']
-        if '.com' in text:
-            result='https://i.ibb.co/0hk28GL/check.png'
-        else:
-            result='https://i.ibb.co/PjrWmJm/cross.png'
-
-        return render_template('index.html',text=text,result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)
