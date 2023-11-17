@@ -8,7 +8,7 @@ import requests
 github_url='https://raw.githubusercontent.com/MarcelinoCodes/CyberDetection/master/rf_model.joblib'
 response = requests.get(github_url)
 model = BytesIO(response.content)
-#model=jb.load(model)
+model=jb.load(model)
 def count_special_characters(input_string):
     special_characters = 0
     for char in input_string:
