@@ -20,8 +20,8 @@ def ML(u):
     df = pd.get_dummies(df, columns=['server'], drop_first=True)
     df = pd.get_dummies(df, columns=['charsets'], drop_first=True)
     #creating X and y; now train test split
-    y = df['mal'] 
-    X = df.drop(columns = 'mal', axis=1)
+    y = df['mal']
+    X_train, X_test, y_train, y_test = train_test_split(df.drop(columns = 'mal', axis=1), y, test_size=0.30, random_state=1234)
     # Creating model
     rf_model = RandomForestClassifier()
     # Fitting the model 
