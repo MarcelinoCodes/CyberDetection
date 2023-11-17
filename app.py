@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import pandas as pd
 from joblib import load 
-from urllib.request import urlopen
+#from urllib.request import urlopen
 
 def count_special_characters(input_string):
     special_characters = 0
@@ -10,7 +10,7 @@ def count_special_characters(input_string):
             special_characters += 1
     return special_characters
 
-model=load('rf_model.joblib')
+#model=load('rf_model.joblib')
 app=Flask(__name__)
 
 @app.route('/',methods=['GET','POST'])
@@ -18,6 +18,7 @@ def run_app():
     if request.method=='GET':
         return render_template('index.html')
     elif request.method=='POST':
+        '''
         text = request.form['text']
         url=[100]
 
@@ -78,6 +79,12 @@ def run_app():
             result="https://i.ibb.co/PjrWmJm/cross.png"
         else:
             result="https://i.ibb.co/0hk28GL/check.png"
+        '''
+        text = request.form['text']
+        if '.com' in text:
+            result='https://i.ibb.co/0hk28GL/check.png'
+        else:
+            result='https://i.ibb.co/PjrWmJm/cross.png'
 
         return render_template('index.html',text=text,result=result)
 
